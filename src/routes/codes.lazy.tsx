@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { database } from "@/firebase/config";
 import { ScannedCode } from "@/interfaces/code.interface";
-import { onChildAdded, onValue, ref } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import CodeList from "@/components/CodeList";
 
 export const Route = createLazyFileRoute("/codes")({
