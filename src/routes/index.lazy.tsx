@@ -37,35 +37,32 @@ function ScannerApp() {
     isFlashlightOn,
     setIsFlashlightOn,
     barcode,
-    setBarcode,
     devices,
-    setDevices,
-    deviceId,
     setDeviceId,
   } = useScanner(videoRef);
 
-  const calculateEAN13Checksum = (eanArray: number[]) => {
-    // Alternar sumando dígitos en posiciones impares y pares
-    const sum = eanArray.reduce((acc, digit, index) => {
-      return acc + digit * (index % 2 === 0 ? 1 : 3);
-    }, 0);
+  // const calculateEAN13Checksum = (eanArray: number[]) => {
+  //   // Alternar sumando dígitos en posiciones impares y pares
+  //   const sum = eanArray.reduce((acc, digit, index) => {
+  //     return acc + digit * (index % 2 === 0 ? 1 : 3);
+  //   }, 0);
 
-    // El dígito de control es lo necesario para llegar al siguiente múltiplo de 10
-    return (10 - (sum % 10)) % 10;
-  };
-  const generateEAN13 = () => {
-    // Generar los primeros 12 dígitos aleatorios
-    let ean = Array.from({ length: 12 }, () => Math.floor(Math.random() * 10));
+  //   // El dígito de control es lo necesario para llegar al siguiente múltiplo de 10
+  //   return (10 - (sum % 10)) % 10;
+  // };
+  // const generateEAN13 = () => {
+  //   // Generar los primeros 12 dígitos aleatorios
+  //   let ean = Array.from({ length: 12 }, () => Math.floor(Math.random() * 10));
 
-    // Calcular el dígito de control
-    const checksum = calculateEAN13Checksum(ean);
+  //   // Calcular el dígito de control
+  //   const checksum = calculateEAN13Checksum(ean);
 
-    // Añadir el dígito de control al final
-    ean.push(checksum);
+  //   // Añadir el dígito de control al final
+  //   ean.push(checksum);
 
-    // Devolver como string
-    return ean.join("");
-  };
+  //   // Devolver como string
+  //   return ean.join("");
+  // };
 
   const handleScan = useCallback(() => {
     setScanning(true);
