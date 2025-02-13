@@ -120,6 +120,11 @@ function ScannerApp() {
     setCurrentCode(null);
   }, []);
 
+  const retryScan = useCallback(() => {
+    setScanning(true);
+    setCurrentCode(null);
+  }, []);
+
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       {scanning ? (
@@ -197,7 +202,7 @@ function ScannerApp() {
               </Button>
             </div>
           </footer>
-          <Dialog open={showModal} onOpenChange={setShowModal}>
+          <Dialog open={showModal} onOpenChange={handleCancel}>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Verificar Código</DialogTitle>
@@ -211,10 +216,10 @@ function ScannerApp() {
               <DialogFooter>
                 <Button
                   variant="outline"
-                  onClick={handleCancel}
+                  onClick={retryScan}
                   className="w-full"
                 >
-                  Cancelar
+                  Volver a intentar
                 </Button>
                 <Button onClick={handleConfirm} className="w-full mb-1">
                   Confirmar
