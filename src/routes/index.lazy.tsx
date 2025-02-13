@@ -15,7 +15,6 @@ import { useToast } from "@/hooks/use-toast";
 
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import BarcodeGenerator from "@/components/BarcodeGenerator";
-import CodeList from "@/components/CodeList";
 import { ScannedCode } from "@/interfaces/code.interface";
 import { writeCode } from "@/firebase/config";
 import { useScanner } from "@/hooks/useScanner";
@@ -67,28 +66,11 @@ function ScannerApp() {
 
   const handleScan = useCallback(() => {
     setScanning(true);
-    // Simulamos el escaneo de un código después de 2 segundos
-    // setTimeout(() => {
-    //   const newCode = generateEAN13();
-    //   setCurrentCode(newCode);
-    //   setScannedCodes((prevCodes) => [
-    //     ...prevCodes,
-    //     {
-    //       id: Date.now().toString(),
-    //       code: newCode,
-    //       timestamp: new Date(),
-    //       copied: false,
-    //     },
-    //   ]);
-    //   setIsScanning(false);
-    //   setShowModal(true);
-    // }, 2000);
   }, []);
 
   useEffect(() => {
     if (barcode) {
       setCurrentCode(barcode);
-
       setScanning(false);
       setShowModal(true);
     }
@@ -139,14 +121,6 @@ function ScannerApp() {
         >
           <div className="absolute top-4 right-4 z-50 flex space-x-2">
             <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20"
-              // onClick={toggleCamera}
-            >
-              {/* <FlipCamera className="h-6 w-6" /> */}
-            </Button>
-            <Button
               // variant={isFlashlightOn ? "default" : "outline"}
               size="icon"
               className={`rounded-full backdrop-blur-md ${
@@ -192,7 +166,14 @@ function ScannerApp() {
             </Link>
           </header>
           <main className="flex-grow overflow-hidden">
-            <CodeList scannedCodes={scannedCodes} limit={5} />
+            {/* <CodeList scannedCodes={scannedCodes} limit={5} /> */}
+            {scannedCodes.length === 0 ? (
+              <p className="text-center text-gray-500">No hay códigos</p>
+            ) : (
+              scannedCodes.map((code) => (
+                <BarcodeGenerator value={code.code} key={code.id} />
+              ))
+            )}
           </main>
           <footer className="bg-white shadow-[0_-1px_3px_rgba(0,0,0,0.1)]">
             <div className="max-w-md mx-auto px-4 py-3">
