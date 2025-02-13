@@ -39,6 +39,7 @@ function ScannerApp() {
     barcode,
     devices,
     setDeviceId,
+    setBarcode,
   } = useScanner(videoRef);
 
   // const calculateEAN13Checksum = (eanArray: number[]) => {
@@ -107,6 +108,7 @@ function ScannerApp() {
       setShowModal(false);
       writeCode(currentCode);
       setCurrentCode(null);
+      setBarcode("");
 
       toast({
         title: "Código escaneado",
@@ -118,11 +120,13 @@ function ScannerApp() {
   const handleCancel = useCallback(() => {
     setShowModal(false);
     setCurrentCode(null);
+    setBarcode("");
   }, []);
 
   const retryScan = useCallback(() => {
     setScanning(true);
     setCurrentCode(null);
+    setBarcode("");
   }, []);
 
   return (
